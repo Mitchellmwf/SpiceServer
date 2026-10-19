@@ -23,15 +23,43 @@ router.get('/:id', async (req: Request, res: Response) => {
 })
 
 router.post('/:id', async (req: Request, res: Response) => {
+    // validation
+    if (!req.body){
+        return res.status(400).json({error: 'Validation failed'});
+    }
 
+    //Add new spice to DB
+    await Spice.create(req.body);
+
+    // send response back
+    return res.status(201).json();
 })
 
 router.put('/:id', async (req: Request, res: Response) => {
+    // Fetch spice
+    const spice = await Spice.findById(req.params.id);
 
+    //validation
+    if (spice == null) {
+        return res.status(404).json({ err: 'Exercise Not Found' });
+    }
+
+    spice.set(req.body);
+    await spice.save(req.body);
+    return res.status(204).json({ msg: 'Spice Updated' });
 })
 
 router.delete('/:id', async (req: Request, res: Response) => {
+    const spice = await Spice.findById(req.params.id);
+    
+    // Validation
+    if (!req.params.id) {
+        return res.status(400).json({error: 'id is missing'});
+    }
+    if (spice == null) return res.status(404).json({ err: 'Spice Not Found' });
 
+    await spice.deleteOne({ _id: req.params.id });
+    return res.status(204).json({ msg: 'Spice Deleted' });
 })
 
 
