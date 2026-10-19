@@ -1,5 +1,7 @@
 // reference to express npm lib
 import express from 'express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 import mongoose from 'mongoose';
 // local file imports
 import spices from './controllers/spiceController.js';
@@ -11,6 +13,20 @@ const db = process.env.DB || "";
 mongoose.connect(db, {})
     .then((res) => console.log("Connected to MongoDB"))
     .catch((err) => console.log(err));
+// swagger setup
+const swaggerSpec = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'FitPal API',
+            version: '1.0.0'
+        }
+    },
+    apis: ['./dist/*.js']
+};
+// Create document from specs
+const openApiSpecs = swaggerJSDoc(swaggerSpec);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpecs));
 // Map url
 app.use('api/v1/spices', spices);
 // run express web server & listen for http requests
