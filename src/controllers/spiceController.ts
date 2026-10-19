@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express';
-import Spice from "./models/spice.model.js";
+import Spice from "../models/spice.model.js";
 
 // create router to map url requests 
 const router: Router = express.Router();
@@ -22,7 +22,7 @@ router.get('/:id', async (req: Request, res: Response) => {
     return res.status(200).json(spice);
 })
 
-router.post('/:id', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
     // validation
     if (!req.body){
         return res.status(400).json({error: 'Validation failed'});
@@ -41,7 +41,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 
     //validation
     if (spice == null) {
-        return res.status(404).json({ err: 'Exercise Not Found' });
+        return res.status(404).json({ err: 'Spice Not Found' });
     }
 
     spice.set(req.body);

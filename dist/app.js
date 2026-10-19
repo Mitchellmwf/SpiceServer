@@ -28,9 +28,9 @@ const swaggerSpec = {
 const openApiSpecs = swaggerJSDoc(swaggerSpec);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpecs));
 // Map url
-app.use('api/v1/spices', spices);
+app.use('/api/v1/spices', spices);
 // run express web server & listen for http requests
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
-    console.log(`Express running at https://localhost:4000`);
+    console.log(`Express running at http://localhost:${port}/api/v1/spices`);
 });
