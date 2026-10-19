@@ -1,0 +1,31 @@
+// reference to express npm lib
+import express, { Request,  Response, Application } from 'express';
+import bodyParser from 'body-parser'; // to read body of http post / put requests
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import mongoose from 'mongoose';
+
+// local file imports
+import spices from './controllers/spiceController.js';
+
+// create instance of a new express application
+const app: Application = express();
+app.use(express.json()); 
+
+// mongoose db conn
+const db: string = process.env.DB || "";
+
+mongoose.connect(db, {})
+    .then((res) => console.log("Connected to MongoDB"))
+    .catch((err) => console.log(err));
+
+
+
+// Map url
+app.use('api/v1/spices', spices)
+
+// run express web server & listen for http requests
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+    console.log(`Express running at https://localhost:4000`);
+});
