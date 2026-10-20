@@ -18,8 +18,11 @@ const router: Router = express.Router();
  *         description: No spices found
  */
 router.get('/', async (req: Request, res: Response) => {
+    // Add ability to filter spices for easier testing
+    const filter = req.query;
+
     // Fetch all spices from mongodb
-    const spices = await Spice.find();
+    const spices = await Spice.find(filter);
 
     if (spices.length === 0) return res.status(404).json({ err: 'No spices found' });
 

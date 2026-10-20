@@ -24,11 +24,11 @@ const swaggerSpec = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'FitPal API',
+            title: 'Spice API',
             version: '1.0.0'
         }
     },
-    apis: ['./dist/*.js'] 
+    apis: ['./dist/controllers/*.js'] 
 };
 
 // Create document from specs
