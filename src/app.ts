@@ -29,7 +29,7 @@ const swaggerSpec = {
             version: '1.0.0'
         }
     },
-    apis: ['./dist/controllers/*.js'] 
+    apis: ['./dist/*.js'] 
 };
 
 // Create document from specs
