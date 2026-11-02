@@ -12,6 +12,7 @@ import spices from './controllers/spiceController.js';
 const app: Application = express();
 app.use(express.json()); 
 
+
 // mongoose db conn
 const db: string = process.env.DB || "";
 
